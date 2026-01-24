@@ -1,27 +1,14 @@
-<<<<<<< HEAD
-# Real Estate AI Predictor & Sales Analyzer 🚀
-=======
-# 🚀 Real Estate AI Predictor
->>>>>>> 33c1aa9 (Add requirements.txt and improve project structure)
+# 🚀 Real Estate AI Predictor & Sales Analyzer
 
-This project uses **Machine Learning** to predict real estate profits based on historical sales data.
+This project uses **Machine Learning** to predict real estate profits based on historical sales data and provides automated sales analysis.
 
 ## 📊 Features
-* Interactive file selection using **Tkinter**.
-* Automated data cleaning and commission calculation.
-* Profit prediction using **Linear Regression**.
-* Data visualization for sales distribution.
+* **Interactive GUI**: Easy file selection using **Tkinter**.
+* **Data Processing**: Automated data cleaning and commission calculation.
+* **AI Prediction**: Profit prediction using **Linear Regression (Scikit-Learn)**.
+* **Visualization**: Data distribution and sales trends visualization.
 
-## 🛠️ Installation
-1. Clone the repo: `git clone https://github.com/your-username/repo-name`
-2. Install requirements: `pip install -r requirements.txt`
-3. Run the app: `python main2.py`
-
-<<<<<<< HEAD
-## 🚀 How to Run
-1. Install dependencies: `pip install -r requirements.txt`
-2. Run the main script: `python main.py`z
-=======
-## 📈 Sample Results
-![Chart](chart_image/your_chart_name.png)
->>>>>>> 33c1aa9 (Add requirements.txt and improve project structure)
+## 🛠️ Installation & Setup
+1. **Clone the repository**:
+   ```bash
+   git clone [https://github.com/Adham-DataScientist/Real-Estate-AI-Predictor.git](https://github.com/Adham-DataScientist/Real-Estate-AI-Predictor.git)
