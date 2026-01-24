@@ -1,21 +1,27 @@
+<<<<<<< HEAD
 # Real Estate AI Predictor & Sales Analyzer 🚀
+=======
+# 🚀 Real Estate AI Predictor
+>>>>>>> 33c1aa9 (Add requirements.txt and improve project structure)
 
-A Python-based tool for analyzing real estate sales data and predicting commissions using Machine Learning.
+This project uses **Machine Learning** to predict real estate profits based on historical sales data.
 
-## 🌟 Features
-- **Data Loading:** Supports CSV and Excel files via a GUI file picker.
-- **Data Engineering:** Automatically extracts Year, Month, and Day from raw date strings.
-- **Analytics:** Provides sales summaries and grouping by country.
-- **AI Prediction:** Uses Linear Regression to predict commissions based on price.
-- **Visualization:** Generates Pie charts and Bar charts for better data insights.
+## 📊 Features
+* Interactive file selection using **Tkinter**.
+* Automated data cleaning and commission calculation.
+* Profit prediction using **Linear Regression**.
+* Data visualization for sales distribution.
 
-## 🛠️ Technologies Used
-- **Python** (Core Logic)
-- **Pandas** (Data Manipulation)
-- **Matplotlib** (Data Visualization)
-- **Scikit-learn** (Machine Learning)
-- **Tkinter** (GUI for file selection)
+## 🛠️ Installation
+1. Clone the repo: `git clone https://github.com/your-username/repo-name`
+2. Install requirements: `pip install -r requirements.txt`
+3. Run the app: `python main2.py`
 
+<<<<<<< HEAD
 ## 🚀 How to Run
 1. Install dependencies: `pip install -r requirements.txt`
 2. Run the main script: `python main.py`z
+=======
+## 📈 Sample Results
+![Chart](chart_image/your_chart_name.png)
+>>>>>>> 33c1aa9 (Add requirements.txt and improve project structure)
