@@ -1,5 +1,6 @@
 import streamlit as st 
 import pandas as pd
+from functions import proccess_date
 
 
 st.set_page_config(page_title="Real-Estate-AI-Predictor" , layout="wide")
@@ -20,7 +21,7 @@ stMetric {
 st.title("Welcome adham")
 st.write("شغال كويس 😍")
 
-Upload_file = st.file_uploader("Updated_Real_Estate_Date" , type=['xlsx'])
+Upload_file = st.file_uploader("Updated_Real_Estate_Date" , type=['xlsx' ,'csv'])
 
 if Upload_file is not None :
     if st.button("🚀✈️ Start DAta Analysis "):
@@ -31,5 +32,7 @@ if Upload_file is not None :
             elif Upload_file.name.endswith(".csv"):
                 df = pd.read_csv(Upload_file)   
                 st.success("🚀 CSV Loaded file Successfuly") 
+            df = pd.DataFrame(df.head())    
+            proccess_date(df)
         except Exception as a :
             st.error(f"Error reading file {a}")    
