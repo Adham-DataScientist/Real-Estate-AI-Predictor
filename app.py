@@ -30,9 +30,26 @@ if Upload_file is not None :
                 df =pd.read_excel(Upload_file)
                 st.success("🚀 Excel loaded file successfuly")
             elif Upload_file.name.endswith(".csv"):
-                df = pd.read_csv(Upload_file)   
+                df = pd.read_csv(Upload_file , encoding="utf-8" ,on_bad_lines="skip" )  
+                st.info("CSV file detected") 
                 st.success("🚀 CSV Loaded file Successfuly") 
-            df = pd.DataFrame(df.head())    
+            df = pd.DataFrame(df.head(10))    
             proccess_date(df)
+            st.subheader("Proccessed Data preview 🚀")
+            st.dataframe(df.head())
+            st.divider()
+            st.dataframe(df.describe())
         except Exception as a :
-            st.error(f"Error reading file {a}")    
+            st.error(f"Error reading file {a}")  
+            
+        col1 , col2 , col3 = st.columns(3)
+        col1.metric("AVG Price" ,f"$ {df['Price'].mean():,.02f}" )     
+        col2.metric("Total Rows" ,len(df) )     
+        total_sales=(df['Price'] * df['Quantity']).sum() 
+        col3.metric("Total Sales" ,f"${total_sales :,.2f}" )     
+        
+        
+        #st.subheader("📈Businees Real Estate ")
+        #df.groupby("")
+else:
+    st.info("☝️ (Browse files)  يرجي اختيار الملف من")          
