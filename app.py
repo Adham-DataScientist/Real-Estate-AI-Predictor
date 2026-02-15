@@ -1,55 +1,88 @@
-import streamlit as st 
+import streamlit as st
 import pandas as pd
-from functions import proccess_date
+import plotly.express as px 
 
+# إعداد الصفحة
+st.set_page_config(page_title="Real Estate Pro AI", layout="wide", initial_sidebar_state="expanded")
 
-st.set_page_config(page_title="Real-Estate-AI-Predictor" , layout="wide")
-st.markdown(
-  """
-<style>
-.main {
-    background-color: #0e1117;
-}
-stMetric {
-    background-color: #1e2130;
-    padding: 15px;
-    border-radius: 10px;
-}
-</style>
-""", unsafe_allow_html=True
-)
-st.title("Welcome adham")
-st.write("شغال كويس 😍")
+# --- Custom CSS ---
+st.markdown("""
+    <style>
+    .main { background-color: #0e1117; color: white; }
+    [data-testid="stMetric"] {
+        background-color: #161b22;
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #30363d;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-Upload_file = st.file_uploader("Updated_Real_Estate_Date" , type=['xlsx' ,'csv'])
+# --- Sidebar ---
+with st.sidebar:
+    st.image("https://cdn-icons-png.flaticon.com/512/609/609036.png", width=100)
+    st.title("Settings")
+    uploaded_file = st.file_uploader("Upload Data", type=['csv', 'xlsx'])
+    st.divider()
+    st.info("Developed by Adham 🚀")
 
-if Upload_file is not None :
-    if st.button("🚀✈️ Start DAta Analysis "):
-        try :
-            if Upload_file.name.endswith('.xlsx') or Upload_file.name.endswith(".xls"):  
-                df =pd.read_excel(Upload_file)
-                st.success("🚀 Excel loaded file successfuly")
-            elif Upload_file.name.endswith(".csv"):
-                df = pd.read_csv(Upload_file , encoding="utf-8" ,on_bad_lines="skip" )  
-                st.info("CSV file detected") 
-                st.success("🚀 CSV Loaded file Successfuly") 
-            df = pd.DataFrame(df.head(10))    
-            proccess_date(df)
-            st.subheader("Proccessed Data preview 🚀")
-            st.dataframe(df.head())
-            st.divider()
-            st.dataframe(df.describe())
-        except Exception as a :
-            st.error(f"Error reading file {a}")  
-            
-        col1 , col2 , col3 = st.columns(3)
-        col1.metric("AVG Price" ,f"$ {df['Price'].mean():,.02f}" )     
-        col2.metric("Total Rows" ,len(df) )     
-        total_sales=(df['Price'] * df['Quantity']).sum() 
-        col3.metric("Total Sales" ,f"${total_sales :,.2f}" )     
+# --- الصفحة الرئيسية ---
+st.title("🏢 Real Estate AI Predictor")
+st.markdown("---")
+
+if uploaded_file:
+    # قراءة البيانات
+    df = pd.read_csv(uploaded_file) if uploaded_file.name.endswith('.csv') else pd.read_excel(uploaded_file)
+    df.columns = df.columns.str.strip()
+
+    # صف المقاييس (KPIs)
+    m1, m2, m3, m4 = st.columns(4)
+    
+    with m1:
+        st.metric("Total Records", f"{len(df):,}")
+        st.metric("describe Records", df.info())
+    
+    with m2:
+        if 'Price' in df.columns:
+            df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
+            avg_price = df['Price'].mean()
+        else:
+            avg_price = 0
+            st.warning("⚠️ Column 'Price' not found")
         
+        st.metric("Avg Price/Unit", f"${avg_price:,.2f}")
         
-        #st.subheader("📈Businees Real Estate ")
-        #df.groupby("")
+    with m3:
+        city_col = 'City' if 'City' in df.columns else df.columns[0]
+        st.metric("Unique Locations", df[city_col].nunique())
+        
+    with m4:
+        st.metric("Status", "Ready ✅")
+
+    st.markdown("### 📊 Market Analysis")
+    
+    tab_charts, tab_data, tab_ai = st.tabs(["Visual Analytics", "Raw Data", "AI Prediction"])
+
+    with tab_charts:
+        c1, c2 = st.columns(2)
+        with c1:
+            # ✅ التعديل: استخدام width="stretch" لمنع تحذير 2026
+            fig1 = px.histogram(df, x=df.columns[2], title=f"Distribution of {df.columns[2]}", color_discrete_sequence=['#00f2ff'])
+            st.plotly_chart(fig1, width="stretch")
+        with c2:
+            # ✅ التعديل: استخدام width="stretch" هنا أيضاً
+            fig2 = px.scatter(df, x=df.columns[3], y=df.columns[-1], title="Price Analysis", color_discrete_sequence=['#ff4b4b'])
+            st.plotly_chart(fig2, width="stretch")
+
+    with tab_data:
+        # ✅ التعديل: استخدام width="stretch" للجدول
+        st.dataframe(df, width="stretch")
+
+    with tab_ai:
+        st.subheader("🤖 Predict House Value")
+        st.info("The AI model is learning from your uploaded data...")
+
 else:
-    st.info("☝️ (Browse files)  يرجي اختيار الملف من")          
+    # ✅ التعديل: استخدام width="stretch" للصورة الترحيبية
+    st.image("https://tse2.mm.bing.net/th/id/OIP.xOwCSIWL4eHUF-k3r51AQQHaDt?pid=Api&h=220&P=0", width="stretch")
+    st.warning("👈 Please upload a dataset from the sidebar to start.")
