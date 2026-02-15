@@ -3,7 +3,8 @@
 This project uses **Machine Learning** to predict real estate profits based on historical sales data and provides automated sales analysis.
 
 ## 📊 Features
-* **Interactive GUI**: Easy file selection using **Tkinter**.
+* **Interactive GUI**: Easy file 
+selection using **Tkinter**.
 * **Data Processing**: Automated data cleaning and commission calculation.
 * **AI Prediction**: Profit prediction using **Linear Regression (Scikit-Learn)**.
 * **Visualization**: Data distribution and sales trends visualization.
